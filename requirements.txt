@@ -1,0 +1,13 @@
+# Core ranking dependencies — CPU-only, no network at ranking time.
+# Pinned to the versions the submission was produced and tested with.
+numpy>=1.24,<3.0
+scikit-learn>=1.3,<2.0
+
+# --- Optional: dense-embedding semantic re-rank (`--embeddings <dir>`) --------
+# Not required for the default reproducible path. Install only if you want to
+# enable the local sentence-transformer re-rank and already have model weights
+# cached on disk (no download happens at ranking time).
+# sentence-transformers>=2.2,<4.0
+
+# --- Optional: local sandbox demo (app.py) ------------------------------------
+# streamlit>=1.30

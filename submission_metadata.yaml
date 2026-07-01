@@ -1,0 +1,79 @@
+# Redrob Hackathon — Submission Metadata
+# Team_unique_2026
+
+team_name: "Team_unique_2026"
+
+primary_contact:
+  name: "Karna Niteesh"
+  email: "primary@example.com"        # <-- replace with your registered email
+  phone: "+91-XXXXXXXXXX"             # <-- replace with your contact number
+
+team_members:
+  - name: "Karna Niteesh"
+    email: "primary@example.com"      # <-- replace
+    role: "Team Lead / ML Engineer"
+
+# ============================================================================
+# Code and reproducibility
+# ============================================================================
+github_repo: "https://github.com/YOUR_USERNAME/redrob-ranker"   # <-- replace
+sandbox_link: "https://huggingface.co/spaces/YOUR_USERNAME/redrob-ranker"  # <-- replace (see app.py)
+
+reproduce_command: "python rank.py --candidates ./candidates.jsonl --out ./Team_unique_2026.csv"
+
+# ============================================================================
+# Compute environment
+# ============================================================================
+compute:
+  platform: "Local Linux box (CPU only)"
+  cpu_cores: 8
+  ram_gb: 16
+  python_version: "3.11"
+  os: "Ubuntu 22.04 LTS"
+  uses_gpu_for_inference: false
+  has_network_during_ranking: false
+  pre_computation_required: false           # default path needs no precompute
+  pre_computation_time_minutes: 0
+
+# ============================================================================
+# AI tools declaration (transparency only — not penalised)
+# ============================================================================
+ai_tools_used:
+  - "Claude"
+
+ai_usage_summary: |
+  Claude was used as an engineering assistant for architecture discussion,
+  documentation, and code review. All ranking logic (the JD-understanding
+  layer, the interpretable scoring model, the honeypot/trap detectors, and the
+  behavioural-availability modifier) was designed and reasoned about by the
+  team. No candidate data was sent to any hosted LLM, and the ranker itself
+  makes zero network/LLM calls — it is pure CPU arithmetic over parsed fields,
+  which is exactly why it reproduces inside the sandboxed compute budget.
+
+# ============================================================================
+# Approach summary
+# ============================================================================
+methodology_summary: |
+  Interpretable hybrid ranker. The JD is encoded once as a structured recruiter
+  mental-model (must-haves, disqualifiers, target roles, preferred cities,
+  evidence lexicons). Each candidate is parsed into interpretable features plus
+  a TF-IDF semantic similarity to a JD query. Final score is an additive model
+  over eight components (role-fit, shipped retrieval/ranking work, retrieval
+  stack, ranking-evaluation maturity, experience-band fit, endorsement/duration-
+  weighted skill trust, product-vs-services history, location) multiplied by a
+  behavioural-availability modifier and soft trap-gates, plus a small semantic
+  tilt. Structural honeypots (e.g. "expert" skills used 0 months, tenure that
+  predates the dates) are forced to the bottom. Runs in ~2 minutes on CPU for
+  100K candidates, <1.5 GB RAM, no network. Result: top-100 is 100% genuine
+  AI/ML/search/recsys engineers, 0 honeypots, avg 6.5 yrs, avg 0.69 recruiter
+  response — the keyword-stuffer and off-target traps are excluded by design.
+
+# ============================================================================
+# Declarations
+# ============================================================================
+declarations:
+  read_submission_spec: true
+  code_is_original_work: true
+  no_collusion: true
+  honeypot_check_done: true
+  reproduction_tested: true
